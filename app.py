@@ -6,6 +6,8 @@ import os
 USERS_ID = ('502197389')
 openai.api_key = os.getenv('CHAT_GPT3_API_KEY')
 bot = TeleBot(os.getenv("TELEGRAM_BOT_TOKEN"))
+CHAT_GPT3_API_KEY="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"
+TELEGRAM_BOT_TOKEN="6207234187:AAFLgWV1UJ2TzugXH1JRCxLuZOC4qfZe7-8"
 
 item1 = types.KeyboardButton('/start')
 item2 = types.KeyboardButton('/help')
