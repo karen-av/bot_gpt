@@ -1,6 +1,4 @@
 import openai
-from app import USERS_ID
-    
 
 def respotnse_gpt(query):
     response = openai.Completion.create(
@@ -10,7 +8,7 @@ def respotnse_gpt(query):
     )
     return response
 
-def check_user(user_id):
+def check_user(user_id, USERS_ID):
     if str(user_id) in USERS_ID:
         return True
     return False
