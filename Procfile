@@ -1,0 +1,1 @@
+web: gunicorn app:app или web: python app.py
