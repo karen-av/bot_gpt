@@ -35,10 +35,10 @@ def start(message):
 def help(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add(item1, item2)
-    bot.reply_to(message, "Раздел в разработке.",reply_markup=markup)
+    bot.reply_to(message, "Админ @karen_av",reply_markup=markup)
 
 
-@bot.message_handler(commands=['story'])
+@bot.message_handler(commands=['story']) 
 def help(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add(item1, item2)
@@ -57,9 +57,13 @@ def text(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     if message.chat.type == 'private' and check_user(message.from_user.id, USERS_ID):
         markup.add(item1, item2)
-        response = respotnse_gpt(message.text)
-        output_text = response.choices[0].text
-        bot.send_message(message.chat.id, output_text, reply_markup=markup)
+        try:
+            response = respotnse_gpt(message.text)
+            output_text = response.choices[0].text
+            bot.send_message(message.chat.id, output_text, reply_markup=markup)
+        except Exception as _ex:
+            bot.send_message(message.chat.id, "Ошибка. Обратитесь к системному администратору.", reply_markup=markup)
+            print(f'Exeption: {_ex}')
     else:
         markup.add(item1, item2)
         bot.send_message(message.chat.id, "\
