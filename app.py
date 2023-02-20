@@ -3,7 +3,7 @@ from functions import respotnse_gpt, check_user
 import openai
 import os
 
-USERS_ID = ('502197389')
+USERS_ID = os.getenv('USERS_ID')
 openai.api_key = os.getenv('CHAT_GPT3_API_KEY')
 bot = TeleBot(os.getenv("TELEGRAM_BOT_TOKEN"))
 
