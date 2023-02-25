@@ -37,19 +37,6 @@ def help(message):
     bot.reply_to(message, "Админ @karen_av",reply_markup=markup)
 
 
-@bot.message_handler(commands=['story']) 
-def help(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add(item1, item2)
-    bot.reply_to(message, "Раздел в разработке.",reply_markup=markup)
-
-
-@bot.message_handler(commands=['users'])
-def help(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add(item1, item2)
-    bot.reply_to(message, "Раздел в разработке.",reply_markup=markup)
-
 
 @bot.message_handler(content_types=['text'])
 def text(message):
