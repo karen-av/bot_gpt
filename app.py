@@ -4,9 +4,8 @@ import openai
 import os
 from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path)
+
+load_dotenv()
 
 USERS_ID = os.getenv('USERS_ID')
 openai.api_key = os.getenv("CHAT_GPT3_API_KEY")
