@@ -55,7 +55,7 @@ def start(message):
         
 
 @bot.message_handler(content_types=['text'])
-def text(message):
+def deletecontext(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     if message.chat.type == 'private' and check_user(message.from_user.id, USERS_ID):
         markup.add(item1, item2, item3)
