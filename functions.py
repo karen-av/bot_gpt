@@ -82,7 +82,6 @@ def respotnse_gpt(user_id, content):
     messages=messages
     )
     chat_response = completion.choices[0].message.content
-    print(f'ChatGPT: {chat_response}')
     insert_db(user_id, chat_response)
     return chat_response
 
