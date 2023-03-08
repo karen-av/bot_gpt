@@ -61,7 +61,6 @@ def text(message):
         markup.add(item1, item2, item3)
         try:
             response = respotnse_gpt(message.from_user.id, message.text)
-            #output_text = response.choices[0].text
             bot.send_message(message.chat.id, response, reply_markup=markup)
         except Exception as _ex:
             bot.send_message(message.chat.id, "Ошибка. Обратитесь к системному администратору.", reply_markup=markup)
