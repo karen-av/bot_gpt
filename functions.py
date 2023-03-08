@@ -74,7 +74,6 @@ def respotnse_gpt(user_id, content):
     messages = [{"role": "system", "content" : "You're a kind helpful assistant. Answer as concisely as possible."}]
     assistant = select_db(user_id)
     for assist in assistant:
-         print(f'assist - {assist[0]}')
          messages.append({"role": "assistant", "content": assist[0]})
     messages.append({"role": "user", "content": content})
     completion = openai.ChatCompletion.create(
