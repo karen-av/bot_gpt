@@ -79,6 +79,9 @@ def respotnse_gpt(user_id, content):
     completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo", 
     messages=messages
+    #max_tokens=1000
+    #temperature = 0.7
+    #n = 1
     )
     chat_response = completion.choices[0].message.content
     insert_db(user_id, chat_response)
