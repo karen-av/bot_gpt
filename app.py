@@ -1,5 +1,5 @@
 from telebot import TeleBot, types
-from functions import respotnse_gpt, check_user, dell_db
+from functions import respotnse_gpt, check_user, deletecontext
 import openai
 import os
 from dotenv import load_dotenv
@@ -45,7 +45,7 @@ def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     if check_user(message.from_user.id, USERS_ID):
         markup.add(item1, item2, item3)
-        dell_db(message.from_user.id)
+        deletecontext(message.from_user.id)
         bot.send_message(message.chat.id, "Контекст сброшен", reply_markup=markup)
     else:
         markup.add(item1, item2, item3)

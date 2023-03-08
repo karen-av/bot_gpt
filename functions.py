@@ -54,7 +54,7 @@ def select_db(user_id):
             print("[INFO] SQLite connection closed")
 
 
-def dell_db(user_id):
+def deletecontext(user_id):
     user_id = (user_id, )
     connection = connection_db()
     try:
