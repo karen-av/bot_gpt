@@ -1,18 +1,18 @@
 
 # TELEGRAM BOT 
 
-<p>Создать файл .env в корне проекта и оределить там переменные окружения <p>
-TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-CHAT_GPT3_API_KEY = "YOUR_CHAT_GPT3_API_KEY"
-id пользователей, которым будет доступен чат. @getmyid_bot
-USERS_ID = ["user_id_1", 'user_id_2']  
-ADMIN_USERNAME - "ADMIN_TELEGRAM_USERNAME.
-------------------------------------------
-В меню @BotFather добавить команды
-variant - Description
-deletecontext - Description
-start - Description
---------------------
+<p>Создать файл .env в корне проекта и оределить там переменные окружения <br>
+TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"<br>
+CHAT_GPT3_API_KEY = "YOUR_CHAT_GPT3_API_KEY"<br>
+id пользователей, которым будет доступен чат. @getmyid_bot<br>
+USERS_ID = ["user_id_1", 'user_id_2']  <br>
+ADMIN_USERNAME - "ADMIN_TELEGRAM_USERNAME.<br>
+------------------------------------------<br>
+В меню @BotFather добавить команды<br>
+variant - Description<br>
+deletecontext - Description<br>
+start - Description<br>
+--------------------<p>
 
 # ChatGPT 
 
