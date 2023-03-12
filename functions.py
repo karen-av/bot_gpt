@@ -7,7 +7,7 @@ import json
 from base64 import b64decode
 from PIL import Image
 import openai
-
+  
 # подключаем файл .env для хранения переменных окружения
 load_dotenv() 
 

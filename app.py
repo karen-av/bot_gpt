@@ -8,7 +8,7 @@ from functions import create, variant, FILE_DIR, respotnse_gpt, deletecont, chec
 
 load_dotenv()
 
-
+   
 bot = Bot(token=os.getenv('TELEGRAM_BOT_TOKEN'))
 dp = Dispatcher(bot)
 openai.api_key = os.getenv("CHAT_GPT3_API_KEY")

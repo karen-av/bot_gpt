@@ -4,4 +4,4 @@ __pycache__
 cloud-init.service
 sqlite.db
 image
-.gitattributes
+
