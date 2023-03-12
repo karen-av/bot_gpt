@@ -3,3 +3,4 @@ venv
 __pycache__
 cloud-init.service
 sqlite.db
+image
