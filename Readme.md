@@ -1,7 +1,7 @@
 
 # TELEGRAM BOT 
 
-Создать файл .env в корне проекта и оределить там переменные окружения 
+<h3>Создать файл .env в корне проекта и оределить там переменные окружения </h3>
 TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
 CHAT_GPT3_API_KEY = "YOUR_CHAT_GPT3_API_KEY"
 id пользователей, которым будет доступен чат. @getmyid_bot
