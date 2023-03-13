@@ -1,3 +1,4 @@
+import logging
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from aiogram import Bot, Dispatcher, types
@@ -8,37 +9,39 @@ from functions import create, variant, FILE_DIR, respotnse_gpt, deletecont, chec
 
 load_dotenv()
 
-   
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+# Initialize bot and dispatcher
 bot = Bot(token=os.getenv('TELEGRAM_BOT_TOKEN'))
 dp = Dispatcher(bot)
 openai.api_key = os.getenv("CHAT_GPT3_API_KEY")
 ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
 PERMISSION_DENIDE = f"Для доступа к ChatGPT получить доступ у админа {ADMIN_USERNAME}."
 
-
-@dp.message_handler(commands=['start'])
+# help start 
+@dp.message_handler(commands=['start', 'help'])
 async def start(message: types.Message):
     print('[INFO] app start.')
     text_message = "Для запроса к ChatPGT отправь\
         \nсообщение с вопросом боту.\nНапиши боту /image + описание изображения и пришлет тебе картинку.\
         \nОтправьте боту /image и он вернет тебе последнее сделанное изображение.\
         \nКоманда /variant создаст еще один вариант последнего изображения."
-    await bot.send_message(message.from_user.id, text_message)
+    await message.answer(text_message)
 
 
-
-# если запрос на все турниры на сегодня
+# Удалить контекст
 @dp.message_handler(commands=['deletecontext'])
 async def deletecontext(message: types.Message):
     print('[INFO] app deletecontext.')
     # Если пользователь есть в списке пользователей
     if check_user(message.from_user.id):
+        # Передаем функции удаления user_id
         deletecont(message.from_user.id)
-        await bot.send_message(message.from_user.id, "Контекст удален")
+        await message.answer("Контекст удален")
         print('[INFO] app deletecontext - Контекст удален.')
     else:
         print('[INFO] app deletecontext - Пользователю отказано в доступе.')
-        bot.send_message(message.chat.id, PERMISSION_DENIDE)
+        await message.answer(PERMISSION_DENIDE)
      
 
 # Создать изображение
@@ -60,20 +63,20 @@ async def image(message: types.Message):
         try:    
             with open(FILE_DIR/f'{message.from_user.id}.png', mode="rb") as file:
                 print('[INFO] app image display image.')
-                await bot.send_message(message.chat.id, "DALL·E:")
+                await message.answer("DALL·E:")
                 await bot.send_photo(message.chat.id, file)
         # если у пользователя еще нет фото
         except Exception as _ex:
             print("[INFO] Exception image :", _ex)
-            await bot.send_message(message.chat.id, "Вы еще не создавали фото.")
+            await message.answer("Вы еще не создавали фото.")
 
     # Если пользователя нет в списке 
     else:
         print('[INFO] app image PERMISSION_DENIDE.')
-        await bot.send_message(message.chat.id, PERMISSION_DENIDE)
+        await message.answer(PERMISSION_DENIDE)
 
 
-# Создать изображение
+# Создать еще изображение
 @dp.message_handler(commands=['variant'])
 async def start(message: types.Message):
     print('[INFO] app image.')
@@ -85,16 +88,16 @@ async def start(message: types.Message):
             # Открываем соднанный файл и отправляем пользователю
             with open(FILE_DIR/f'{message.from_user.id}.png', mode="rb") as file:
                 print('[INFO] app image display image.')
-                await bot.send_message(message.chat.id, "DALL·E:")
+                await message.answer("DALL·E:")
                 await bot.send_photo(message.chat.id, file)
         except Exception as _ex:
             print("[INFO] Exception image :", _ex)
-            await bot.send_message(message.chat.id, "Бот еще не создавал изображения.")
+            await message.answer("Бот еще не создавал изображения.")
     else:
         print('[INFO] app image PERMISSION_DENIDE.')
-        await bot.send_message(message.chat.id, PERMISSION_DENIDE)
+        await message.answer(PERMISSION_DENIDE)
 
-
+# Запрос к ChatGPT
 @dp.message_handler(content_types=['text'])
 async def text_message(message: types.Message):
     print('[INFO] app message_handler text')
@@ -108,18 +111,18 @@ async def text_message(message: types.Message):
             # Передаем запрос к чату через функцию
             try:
                 response = respotnse_gpt(message.from_user.id, message.text)
-                await bot.send_message(message.chat.id, f"CharGPT:\n{response}")
+                await message.answer(f"CharGPT:\n{response}")
             except Exception as _ex:
                 print("Exception :", _ex)
-                await bot.send_message(message.chat.id, f"Ошибка. Обратитесь к системному администратору {ADMIN_USERNAME}.")
+                await message.answer(f"Ошибка. Обратитесь к системному администратору {ADMIN_USERNAME}.")
         
         # Отказано в доступе
         else:
             print('[INFO] app message_handler - PERMISSION_DENIDE')
-            await bot.send_message(message.chat.id, PERMISSION_DENIDE)
+            await message.answer(PERMISSION_DENIDE)
 
     else:
-        await bot.send_message(message.from_user.id, f'echo: {message.text}')
+        await message.answer(f'echo: {message.text}')
 
 
         
