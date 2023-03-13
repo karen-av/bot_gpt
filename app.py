@@ -53,6 +53,7 @@ async def image(message: types.Message):
     if check_user(message.from_user.id):
         # готовим запрос отрезая от него /image
         prompt = str(message.text)[7:]
+        await message.answer("Запрос передан DALL·E ...")
 
         # Если была команда /image + запрос если была только командаБ то высылаем посденее фото
         if len(prompt) != 0: 
@@ -63,7 +64,11 @@ async def image(message: types.Message):
         try:    
             with open(FILE_DIR/f'{message.from_user.id}.png', mode="rb") as file:
                 print('[INFO] app image display image.')
-                await message.answer("DALL·E:")
+                await bot.edit_message_text(
+                    chat_id=message.chat.id, 
+                    message_id=message.message_id + 1, 
+                    text="DALL·E:"
+                )
                 await bot.send_photo(message.chat.id, file)
         # если у пользователя еще нет фото
         except Exception as _ex:
@@ -82,13 +87,19 @@ async def start(message: types.Message):
     print('[INFO] app image.')
     # Проверка пользователя на право доступа
     if check_user(message.from_user.id):
+        await message.answer("Запрос передан DALL·E ...")
+
         # Вызов функции, которая генерит еще один вариант последнего изображения
         variant(message.from_user.id)
         try:
             # Открываем соднанный файл и отправляем пользователю
             with open(FILE_DIR/f'{message.from_user.id}.png', mode="rb") as file:
                 print('[INFO] app image display image.')
-                await message.answer("DALL·E:")
+                await bot.edit_message_text(
+                    chat_id=message.chat.id, 
+                    message_id=message.message_id + 1, 
+                    text="DALL·E:"
+                )
                 await bot.send_photo(message.chat.id, file)
         except Exception as _ex:
             print("[INFO] Exception image :", _ex)
@@ -96,6 +107,7 @@ async def start(message: types.Message):
     else:
         print('[INFO] app image PERMISSION_DENIDE.')
         await message.answer(PERMISSION_DENIDE)
+
 
 # Запрос к ChatGPT
 @dp.message_handler(content_types=['text'])
@@ -108,10 +120,16 @@ async def text_message(message: types.Message):
         #Проверка на право достпа пользователя к чату
         if check_user(message.from_user.id): 
             print('[INFO] app message_handler - chat_gpt')
+            await message.answer(f"Вопрос передан CharGPT ...")
+
             # Передаем запрос к чату через функцию
             try:
                 response = respotnse_gpt(message.from_user.id, message.text)
-                await message.answer(f"CharGPT:\n{response}")
+                await bot.edit_message_text(
+                    chat_id=message.chat.id, 
+                    message_id=message.message_id + 1, 
+                    text=f"CharGPT:\n{response}"
+                )
             except Exception as _ex:
                 print("Exception :", _ex)
                 await message.answer(f"Ошибка. Обратитесь к системному администратору {ADMIN_USERNAME}.")
